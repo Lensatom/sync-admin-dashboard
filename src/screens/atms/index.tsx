@@ -1,11 +1,23 @@
+"use client"
+
 import { Card } from "@/components/layout/card";
 import { Container } from "@/components/layout/container";
 import { Header } from "@/components/layout/header";
 import { Button } from "@/components/ui/button";
-import { Icon } from "@/components/ui/icon";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { useGetAtms } from "./api";
+import { Loader } from "@/components/ui/loader";
+import { formatAmount, formatDate } from "@/helpers";
+import { StatusPill } from "@/components/ui/statusPill";
 
 export function Atms() {
+  const { atms, isLoading } = useGetAtms()
+
+  console.log('atms:', atms);
+
+  if (isLoading) {
+    return <Loader />
+  }
   return (
     <>
       <Header
@@ -15,13 +27,13 @@ export function Atms() {
       <Container className='mt-10'>
         <Card className='!p-0'>
           <div className='flex items-start px-6 py-5'>
-            <h2 className='text-gray.12 font-medium'>All ATMs (8)</h2>
+            <h2 className='text-gray.12 font-medium'>All ATMs (4)</h2>
           </div>
 
           <Table>
             <TableHeader>
               <TableRow className='px-6 text-xs font-semibold text-gray.12'>
-                <TableHead className='min-w-[267px]'>ATM ID</TableHead>
+                <TableHead>ATM ID</TableHead>
                 <TableHead>Last Heartbeat</TableHead>
                 <TableHead>Cash Level</TableHead>
                 <TableHead>Amount Inside</TableHead>
@@ -30,13 +42,17 @@ export function Atms() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {[1, 2, 3, 4].map((item) => (
-                <TableRow className='px-6' key={item}>
-                  <TableCell className="font-medium">ATM #978-LFG-G56</TableCell>
-                  <TableCell>11:59am, Sep 08, 2024</TableCell>
-                  <TableCell>Processing</TableCell>
-                  <TableCell>₦ 120,000</TableCell>
-                  <TableCell>Warning</TableCell>
+              {atms?.map((item:any) => (
+                <TableRow className='px-6' key={item.id}>
+                  <TableCell className="font-medium">ATM {item._id?.split("-").at(-1)}</TableCell>
+                  <TableCell>{formatDate(item.lastLivenessAt)}, 2025</TableCell>
+                  <TableCell>
+                    <span className={`${item.totalAmount > 7000000 ? "text-green-600" : "text-red-600"}`}>{item.totalAmount > 7000000 ? "Optimal" : "Low"}</span>
+                  </TableCell>
+                  <TableCell>{formatAmount(item.totalAmount)}</TableCell>
+                  <TableCell>
+                    <StatusPill status={item.healthStatus} />
+                  </TableCell>
                   <TableCell className="text-right flex items-center gap-3">
                     <Button pill size="sm" variant="outline" className="font-medium">View More</Button>
                   </TableCell>

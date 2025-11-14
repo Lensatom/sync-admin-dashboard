@@ -53,7 +53,7 @@ export function Sidebar() {
       <nav>
         <ul className='flex flex-col space-y-2'>
           {navs.map((nav) => {
-            const icon:IIcons = isActive(nav.path) ? `${nav.iconName}_active` : `${nav.iconName}`
+            const icon:any = isActive(nav.path) ? `${nav.iconName}_active` : `${nav.iconName}`
             return (
               <li key={nav.title}>
                 <Link

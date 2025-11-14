@@ -1,5 +1,7 @@
 export { default as account } from "./account.svg"
+export { default as atm } from "./atm.svg"
 export { default as atm_active } from "./atm_active.svg"
 export { default as dashboard } from "./dashboard.svg"
 export { default as dispatches } from "./dispatches.svg"
+export { default as dispatches_active } from "./dispatches_active.svg"
 export { default as search } from "./search.svg"
