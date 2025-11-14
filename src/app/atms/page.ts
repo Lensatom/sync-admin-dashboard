@@ -1,0 +1,1 @@
+export { Atms as default } from "@/screens/atms";

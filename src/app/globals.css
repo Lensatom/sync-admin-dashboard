@@ -1,3 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+* {
+  font-family: 'Inter ', sans-serif;
+  @apply text-gray.13
+}
+
+.page-title {
+  @apply text-gray.13 font-semibold text-2xl;
+}
+
+.page-subtitle {
+  @apply text-gray.12 text-sm;
+}
