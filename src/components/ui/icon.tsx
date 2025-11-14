@@ -23,6 +23,8 @@ export const Icon = ({
 }:Props) => {
   const CustomIcon = icons[name]
 
+  if (!CustomIcon) return <div style={{width: size, height: size}} />
+
   return (
     <div
       style={{

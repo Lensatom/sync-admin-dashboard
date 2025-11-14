@@ -1,0 +1,1 @@
+export { Dispatches as default } from "@/screens/dispatches";
